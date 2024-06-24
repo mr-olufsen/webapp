@@ -1,0 +1,36 @@
+<div class="example-container mat-elevation-z8">
+  <div class="example-header">
+    <mat-form-field>
+      <input matInput [formControl]="filterControl" placeholder="Search">
+    </mat-form-field>
+  </div>
+  <mat-table [dataSource]="dataSource" matSort (matSortChange)="applySort($event)">
+
+    <!-- Id Column -->
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Id </mat-header-cell>
+      <mat-cell *matCellDef="let car"> {{car.id}} </mat-cell>
+    </ng-container>
+
+    <!-- Make Column -->
+    <ng-container matColumnDef="make">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Make </mat-header-cell>
+      <mat-cell *matCellDef="let car"> {{ car.make }} </mat-cell>
+    </ng-container>
+
+    <!-- Model Column -->
+    <ng-container matColumnDef="model">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Model </mat-header-cell>
+      <mat-cell *matCellDef="let car"> {{ car.model }} </mat-cell>
+    </ng-container>
+
+    <!-- Numberplatez Column -->
+    <ng-container matColumnDef="numberplate">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Numberplate </mat-header-cell>
+      <mat-cell *matCellDef="let car"> {{ car.numberplate }} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="navigateToCarDetail(row)"></mat-row>
+  </mat-table>
+</div>
