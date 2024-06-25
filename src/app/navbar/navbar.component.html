@@ -1,0 +1,18 @@
+<mat-toolbar color="primary">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/">Cars App</a>
+    <button mat-icon-button (click)="toggleNavbar()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <div class="collapse navbar-collapse nav nav-underline" [class.show]="isNavbarOpen" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/users">Users</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/cars">Cars</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</mat-toolbar>

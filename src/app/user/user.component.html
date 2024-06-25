@@ -1,8 +1,18 @@
-<div class="card">
-  <div class="card-header">
-    {{ user.name }}
+  <div class="container-fluid">
+    <div *ngIf="user">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>{{ user.id }}</td>
+          <td>{{ user.name }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-  <div class="card-body">
-    <p class="card-text">User ID: {{ user.id }}</p>
-  </div>
-</div>

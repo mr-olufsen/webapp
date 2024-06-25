@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
-import {RouterModule} from "@angular/router";
-
+import { RouterModule } from '@angular/router';
+import { AppModule } from '../main';
+import {NavbarComponent} from "./navbar/navbar.component";
 
 @Component({
   selector: 'app-root',
-  standalone: true,
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
-  imports: [RouterModule]
+  styleUrls: ['./app.component.css'],
+  standalone: true,
+  imports: [NavbarComponent, AppModule]
 })
 export class AppComponent {
   title = 'webapp';

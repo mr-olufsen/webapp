@@ -44,6 +44,8 @@ import { routes } from './app/app.routes';
 import {MatSortModule} from "@angular/material/sort";
 import {UserCarsComponent} from "./app/user-cars/user-cars.component";
 import {UserComponent} from "./app/user/user.component";
+import {CommonModule} from "@angular/common";
+import {NavbarComponent} from "./app/navbar/navbar.component";
 
 @NgModule({
   exports: [
@@ -94,10 +96,14 @@ export class DemoMaterialModule {}
     DemoMaterialModule,
     MatNativeDateModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    CommonModule
   ],
   declarations: [UserListComponent, UserComponent, CarListComponent, CarComponent, UserCarsComponent],
   bootstrap: [],
+  exports: [
+
+  ],
   providers: [provideHttpClient()]
 })
 export class AppModule {}

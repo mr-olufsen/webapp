@@ -12,12 +12,14 @@ export class CarComponent implements OnInit {
   car!: Car;
   displayedColumns: string[] = ['id', 'make', 'model', 'numberplate'];
 
-  constructor(private carService: CarService, private route: ActivatedRoute) {}
+  constructor(private carService: CarService, private route: ActivatedRoute) {
+  }
 
   ngOnInit() {
     const carId = Number(this.route.snapshot.paramMap.get('id'));
     this.carService.getCarById(carId).subscribe(car => {
       this.car = car;
+      console.log(car);
     });
   }
 }

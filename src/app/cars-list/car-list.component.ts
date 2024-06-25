@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Car } from "../models/car.model";
@@ -7,6 +7,7 @@ import { CarService } from '../services/car.service';
 import { FormControl } from "@angular/forms";
 import { debounceTime, takeUntil } from "rxjs/operators";
 import { Subject } from 'rxjs';
+import { SortingFilteringService } from '../services/sorting-filtering.service';
 
 @Component({
   selector: 'app-cars',
@@ -23,8 +24,10 @@ export class CarListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private carService: CarService,
+              private sortingFilteringService: SortingFilteringService,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private cdr: ChangeDetectorRef) {
     this.dataSource = new MatTableDataSource<Car>();
   }
 
@@ -34,53 +37,75 @@ export class CarListComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.route.queryParams.pipe(takeUntil(this.ngUnsubscribe)).subscribe(params => {
-      const { find } = params;
-      this.filterControl.setValue(find || '');
-      this.applyFilter(find || '');
+      const { filter, sort } = params;
+      if (filter !== this.sortingFilteringService.getCurrentFilter()) {
+        this.filterControl.setValue(filter || '', { emitEvent: false });
+        this.applyFilter(filter || '');
+      }
+
+      if (sort !== this.sortingFilteringService.getCurrentSort()) {
+        this.sort.sort({ id: sort?.split(':')[0], start: sort?.split(':')[1], disableClear: true });
+        this.cdr.detectChanges();
+      }
+    });
+
+    this.sort.sortChange.pipe(takeUntil(this.ngUnsubscribe)).subscribe(sortState => {
+      const queryParams: any = {};
+      this.sortingFilteringService.applySort(sortState, queryParams);
     });
   }
 
   initializeTable() {
-    // Fetch cars from service
     this.carService.getCars().subscribe((data: Car[]) => {
       this.cars = data;
       this.dataSource.data = this.cars;
     });
 
-    // Set filter predicate
     this.dataSource.filterPredicate = (data, filter: string): boolean => {
       return data.make.toLowerCase().includes(filter) || data.model.toLowerCase().includes(filter) || data.numberplate.toLowerCase().includes(filter);
     };
 
-    // Subscribe to changes in the filter control with debounce
     this.filterControl.valueChanges.pipe(
       debounceTime(300),
       takeUntil(this.ngUnsubscribe)
     ).subscribe(value => {
-      this.applyFilter(value);
+      if (value !== this.sortingFilteringService.getCurrentFilter()) {
+        this.applyFilter(value);
+      }
     });
+  }
+
+  applySort(sortState: Sort) {
+    const queryParams: any = {}; // Initialize queryParams
+    this.sortingFilteringService.applySort(sortState, queryParams); // Delegate to service
   }
 
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim().toLowerCase();
     this.dataSource.filter = filterValue;
-    // Update the URL with the new filter value or remove the parameter if the filter is empty
+
+    const queryParams: any = {};
+
+    if (filterValue) {
+      queryParams.filter = filterValue;
+    }
+
+    if (this.sortingFilteringService.getCurrentSort()) {
+      queryParams.sort = this.sortingFilteringService.getCurrentSort();
+    }
+
     this.router.navigate([], {
       relativeTo: this.route,
-      queryParams: filterValue ? { find: filterValue } : {},
-      queryParamsHandling: filterValue ? 'merge' : ''
-    });
-  }
-
-  applySort(sortState: Sort) {
-    const sortField = sortState.active;
-    const sortDirection = sortState.direction as 'asc' | 'desc';
-
-    // Update the URL with the new sort value
-    this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: { sort: `${sortField}:${sortDirection}` },
+      queryParams,
       queryParamsHandling: 'merge'
+    }).then(() => {
+      if (!filterValue) {
+        this.router.navigate([], {
+          relativeTo: this.route,
+          queryParams: { filter: null },
+          queryParamsHandling: 'merge'
+        });
+      }
     });
   }
 

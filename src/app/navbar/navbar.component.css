@@ -1,0 +1,9 @@
+/* navbar.component.css */
+.navbar {
+  background-color: #007bff; /* Customize the background color */
+  color: #ffffff; /* Customize the text color */
+}
+
+.navbar a {
+  color: #ffffff; /* Customize link color */
+}
