@@ -4,7 +4,6 @@ import {Component} from '@angular/core';
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
-  standalone: true,
 })
 export class NavbarComponent {
   isNavbarOpen = false;

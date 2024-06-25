@@ -99,9 +99,10 @@ export class DemoMaterialModule {}
     RouterModule.forRoot(routes),
     CommonModule
   ],
-  declarations: [UserListComponent, UserComponent, CarListComponent, CarComponent, UserCarsComponent],
+  declarations: [UserListComponent, UserComponent, CarListComponent, CarComponent, UserCarsComponent, NavbarComponent],
   bootstrap: [],
   exports: [
+    NavbarComponent
 
   ],
   providers: [provideHttpClient()]
