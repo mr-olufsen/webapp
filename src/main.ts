@@ -46,6 +46,7 @@ import {UserCarsComponent} from "./app/user-cars/user-cars.component";
 import {UserComponent} from "./app/user/user.component";
 import {CommonModule} from "@angular/common";
 import {NavbarComponent} from "./app/navbar/navbar.component";
+import {platformBrowserDynamic} from "@angular/platform-browser-dynamic";
 
 @NgModule({
   exports: [
@@ -99,11 +100,15 @@ export class DemoMaterialModule {}
     RouterModule.forRoot(routes),
     CommonModule
   ],
-  declarations: [UserListComponent, UserComponent, CarListComponent, CarComponent, UserCarsComponent, NavbarComponent],
+  declarations: [
+    UserListComponent,
+    UserComponent,
+    CarListComponent,
+    CarComponent,
+    UserCarsComponent,
+  ],
   bootstrap: [],
   exports: [
-    NavbarComponent
-
   ],
   providers: [provideHttpClient()]
 })
