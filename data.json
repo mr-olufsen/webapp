@@ -1,0 +1,86 @@
+[
+   {
+      "id": 1,
+      "name": "John Smith",
+      "cars": [
+         {
+            "id": 1,
+            "make": "Ford",
+            "model": "Focus",
+            "numberplate": "AB12 CDE"
+         },
+         {
+            "id": 2,
+            "make": "Vauxhall",
+            "model": "Astra",
+            "numberplate": "FG34 HJK"
+         }
+      ]
+   },
+   {
+      "id": 2,
+      "name": "Emma Johnson",
+      "cars": [
+         {
+            "id": 3,
+            "make": "Volkswagen",
+            "model": "Golf",
+            "numberplate": "LM56 NOP"
+         },
+         {
+            "id": 4,
+            "make": "Vauxhall",
+            "model": "Corsa",
+            "numberplate": "QR78 STU"
+         }
+      ]
+   },
+   {
+      "id": 3,
+      "name": "David Brown",
+      "cars": [
+         {
+            "id": 5,
+            "make": "Ford",
+            "model": "Fiesta",
+            "numberplate": "VW90 XYZ"
+         },
+         {
+            "id": 6,
+            "make": "BMW",
+            "model": "3 Series",
+            "numberplate": "JK12 LMN"
+         }
+      ]
+   },
+   {
+      "id": 4,
+      "name": "Sarah White",
+      "cars": [
+         {
+            "id": 7,
+            "make": "Audi",
+            "model": "A3",
+            "numberplate": "OP34 QRS"
+         },
+         {
+            "id": 8,
+            "make": "BMW",
+            "model": "5 Series",
+            "numberplate": "UV56 WXY"
+         }
+      ]
+   },
+   {
+      "id": 5,
+      "name": "James Green",
+      "cars": [
+         {
+            "id": 9,
+            "make": "Mercedes",
+            "model": "C-Class",
+            "numberplate": "YZ78 ABC"
+         }
+      ]
+   }
+]
