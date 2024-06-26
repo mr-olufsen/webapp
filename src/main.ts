@@ -1,7 +1,7 @@
 import {CdkTableModule} from '@angular/cdk/table';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {bootstrapApplication, BrowserModule} from '@angular/platform-browser';
+import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatButtonModule} from "@angular/material/button";
@@ -34,7 +34,7 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatTableModule} from '@angular/material/table';
 import {provideHttpClient} from "@angular/common/http";
-import {provideRouter, RouterModule} from '@angular/router';
+import {RouterModule} from '@angular/router';
 import {AppComponent} from "./app/app.component";
 import {CarListComponent} from "./app/cars-list/car-list.component";
 import {CarComponent} from "./app/car/car.component";
