@@ -44,6 +44,10 @@ import {UserCarsComponent} from "./app/user-cars/user-cars.component";
 import {UserComponent} from "./app/user/user.component";
 import {CommonModule} from "@angular/common";
 import {MatFormFieldModule} from "@angular/material/form-field";
+import { NavbarComponent } from './app/navbar/navbar.component';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { UserListComponent } from './app/user-list/user-list.component';
+
 
 @NgModule({
   exports: [
@@ -96,20 +100,27 @@ export class DemoMaterialModule {}
     MatNativeDateModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routes),
+    RouterModule,
     CommonModule
   ],
   declarations: [
+    AppComponent,
+    NavbarComponent,
+    UserListComponent,
     UserComponent,
     CarListComponent,
     CarComponent,
     UserCarsComponent,
   ],
-  bootstrap: [],
+  bootstrap: [AppComponent],
   exports: [
   ],
   providers: [provideHttpClient()]
 })
 export class AppModule {}
 
-bootstrapApplication(AppComponent, { providers: [provideHttpClient(), provideRouter(routes)] })
-  .catch((err) => console.error(err));
+
+platformBrowserDynamic().bootstrapModule(AppModule, {
+  ngZoneEventCoalescing: true
+})
+  .catch(err => console.error(err));

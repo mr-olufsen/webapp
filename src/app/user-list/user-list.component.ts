@@ -15,8 +15,6 @@ import { MatFormFieldModule } from "@angular/material/form-field";
   selector: 'app-users',
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css'],
-  standalone: true,
-  imports: [AppModule, RouterModule, ReactiveFormsModule, MatTableModule, MatSortModule, MatFormFieldModule]
 })
 export class UserListComponent implements OnInit  {
   displayedColumns: string[] = ['id', 'name'];
