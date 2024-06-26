@@ -1,21 +1,25 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import { MatSort, Sort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { FormControl } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatSort, Sort, MatSortModule} from '@angular/material/sort';
+import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import { debounceTime, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { UserService } from '../services/user.service'; // Adjust path as per your project
-import { SortingFilteringService } from '../services/sorting-filtering.service'; // Adjust path as per your project
-import { ActivatedRoute, Router } from '@angular/router'; // Adjust path as per your project
-import { User } from '../models/user.model'; // Adjust path as per your project
+import { UserService } from '../services/user.service';
+import { SortingFilteringService } from '../services/sorting-filtering.service';
+import {ActivatedRoute, Router, RouterModule} from '@angular/router';
+import { User } from '../models/user.model';
+import {AppModule} from "../../main";
+import { MatFormFieldModule } from "@angular/material/form-field";
 
 @Component({
   selector: 'app-users',
   templateUrl: './user-list.component.html',
-  styleUrls: ['./user-list.component.css']
+  styleUrls: ['./user-list.component.css'],
+  standalone: true,
+  imports: [AppModule, RouterModule, ReactiveFormsModule, MatTableModule, MatSortModule, MatFormFieldModule]
 })
-export class UserListComponent implements OnInit, AfterViewInit  {
-  displayedColumns: string[] = ['id', 'name']; // Define your columns here
+export class UserListComponent implements OnInit  {
+  displayedColumns: string[] = ['id', 'name'];
 
   dataSource: MatTableDataSource<User>;
   users: User[] = [];
@@ -34,13 +38,8 @@ export class UserListComponent implements OnInit, AfterViewInit  {
   }
 
   ngOnInit() {
-    // this.initializeTable();
-  }
-
-  ngAfterViewInit() {
     this.initializeTable();
   }
-
 
   initializeTable() {
     this.userService.getUsers().subscribe((data: User[]) => {
@@ -87,8 +86,8 @@ export class UserListComponent implements OnInit, AfterViewInit  {
   }
 
   applySort(sortState: Sort) {
-    const queryParams: any = {}; // Initialize queryParams
-    this.sortingFilteringService.applySort(sortState, queryParams); // Delegate to service
+    const queryParams: any = {};
+    this.sortingFilteringService.applySort(sortState, queryParams);
   }
 
   applyFilter(filterValue: string) {

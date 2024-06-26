@@ -34,10 +34,8 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatTableModule} from '@angular/material/table';
 import {provideHttpClient} from "@angular/common/http";
-import {RouterModule} from '@angular/router';
+import {provideRouter, RouterModule} from '@angular/router';
 import {AppComponent} from "./app/app.component";
-import {appConfig} from "./app/app.config";
-import {UserListComponent} from "./app/user-list/user-list.component";
 import {CarListComponent} from "./app/cars-list/car-list.component";
 import {CarComponent} from "./app/car/car.component";
 import { routes } from './app/app.routes';
@@ -45,8 +43,7 @@ import {MatSortModule} from "@angular/material/sort";
 import {UserCarsComponent} from "./app/user-cars/user-cars.component";
 import {UserComponent} from "./app/user/user.component";
 import {CommonModule} from "@angular/common";
-import {NavbarComponent} from "./app/navbar/navbar.component";
-import {platformBrowserDynamic} from "@angular/platform-browser-dynamic";
+import {MatFormFieldModule} from "@angular/material/form-field";
 
 @NgModule({
   exports: [
@@ -84,7 +81,8 @@ import {platformBrowserDynamic} from "@angular/platform-browser-dynamic";
     MatTooltipModule,
     MatDialogModule,
     MatGridListModule,
-    MatSortModule
+    MatSortModule,
+    MatFormFieldModule
   ]
 })
 export class DemoMaterialModule {}
@@ -101,7 +99,6 @@ export class DemoMaterialModule {}
     CommonModule
   ],
   declarations: [
-    UserListComponent,
     UserComponent,
     CarListComponent,
     CarComponent,
@@ -114,5 +111,5 @@ export class DemoMaterialModule {}
 })
 export class AppModule {}
 
-bootstrapApplication(AppComponent, appConfig)
+bootstrapApplication(AppComponent, { providers: [provideHttpClient(), provideRouter(routes)] })
   .catch((err) => console.error(err));
